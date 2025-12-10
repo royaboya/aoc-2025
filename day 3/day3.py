@@ -1,5 +1,6 @@
-with open("./day 3/test.txt", "r") as file:
+with open("./day 3/input.txt", "r") as file:
     joltage_ratings = file.readlines()
+
 
 # part 1
 """
@@ -34,9 +35,14 @@ print(sum(joltages))
 # requirement is 12 digits
 # greedy approach for 12 digits
 
+cleaned_joltage_ratings = [
+    [x.strip() for x in bank if x.strip() != '']
+    for bank in joltage_ratings
+]
+
 joltages = []
 
-for bank in joltage_ratings:
+for bank in cleaned_joltage_ratings:
     running_buf_length = 1
     joltage_buffer = ""
     END = 12
@@ -46,12 +52,12 @@ for bank in joltage_ratings:
     
     # bound = len(battery_voltages) - (12 - running buf)
      
-    while running_buf_length < 12: 
+    while running_buf_length <= 12: 
     
         candidate = int(bank[prev+1]) 
         cand_idx = prev + 1  
 
-        for i in range(cand_idx + 1, len(bank) - (END - running_buf_length)): 
+        for i in range(cand_idx + 1, (len(bank) - (END - running_buf_length))): 
             if int(bank[i]) > candidate:
                 candidate = int(bank[i])
                 cand_idx = i
@@ -72,5 +78,5 @@ for bank in joltage_ratings:
     
     # search until bounds depends on length of running buffer
     
-print(len(joltages[0]))
-print(joltages[0])
+joltages = [int(_) for _ in joltages]
+print(sum(joltages))
