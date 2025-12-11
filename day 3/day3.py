@@ -3,7 +3,6 @@ with open("./day 3/input.txt", "r") as file:
 
 
 # part 1
-"""
 
 joltages = []
 
@@ -29,7 +28,7 @@ for bank in joltage_ratings:
     joltages.append(int(f"{candidate_one}{candidate_two}"))
     
 print(sum(joltages))
-"""
+
 
 # part 2
 # requirement is 12 digits
