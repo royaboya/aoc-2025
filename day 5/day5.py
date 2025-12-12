@@ -39,48 +39,65 @@ print(len(valid))
  
 # part 2 aggregate the ranges for faster processing? or just brute force it
 
-# brute force attempt is too slow, need to aggregate the ranges and then take the difference in each range
+# brute force attempt is too slow/takes too much memory, need to aggregate the ranges and then take the difference in each range
 # then take the sum of those differences for the answer
-# fresh = set()
-
-# for r in ranges:
-#     range_split = r.split("-")
-
-#     start = int(range_split[0]) 
-#     end = int(range_split[1])
-    
-#     for num in range(start, end+1):
-#         if num not in fresh:
-#             fresh.add(num)
-#         else:
-#             continue
-        
-# print(len(fresh))
-# sort ranges by start
-# then parse through and then merge
 
 
 def get_end(range):
     return int(range.split('-')[1])
 
+def get_start(range):
+    return int(range.split('-')[0])
+
+# range1 < range2
+def merge_ranges(range1, range2):
+    # aggregate ranges here
+    start = min(get_start(range1), get_start(range2))
+    end = max(get_end(range1), get_end(range2))
+    
+    return f"{start}-{end}"
+    
 
 sorted_ranges = sorted(ranges, key=lambda x: int((x.split('-')[0])))
 fully_merged_ranges = []
 
-to_be_merged = sorted_ranges[0]
+curr_range = sorted_ranges[0]
 
-# aish figure merging this out at home 
-for i in range(1, len(sorted_ranges)+1):
-    if get_end(to_be_merged) 
-    
-    pass
-    
-    
+# if curr.end >= next.start -> merge -> set to_be_merged = curr, increment i
+# else, add to finished range
+
+i = 1
+
+while i <= (len(sorted_ranges) - 1):
+    if get_end(curr_range) >= get_start(sorted_ranges[i]):
+        merged = merge_ranges(curr_range, sorted_ranges[i])
+        curr_range = merged
+        i+=1
+    else:
+        fully_merged_ranges.append(curr_range)
+        curr_range = sorted_ranges[i]
+        i+=1
+
+# add last range if a merge happens at the end
+fully_merged_ranges.append(curr_range)
+
+#print(fully_merged_ranges)
+
+# for i in range(len(fully_merged_ranges) - 1):
+#     print(get_end(fully_merged_ranges[i]) < get_start(fully_merged_ranges[i+1]))
+
+
     # pick a range
     # go next, if merge, merge
     # go next, if not merge, add current finished merge
     # then pick next merge as next iter    
-    
+
+
+count = 0
+for i in fully_merged_ranges:
+    count += (get_end(i) - get_start(i) + 1)
+
+print(count)
 
  
 
