@@ -10,12 +10,8 @@ with open("./day 6/input.txt","r") as file:
     numbers = [s.split(' ') for s in numbers]
     numbers = [[element for element in row if element != ""] for row in numbers]        
 
-
+"""
 columns = [[row[i] for row in numbers] for i in range(len(numbers[0]))]
-#print(columns)
-
-#columns = [[int(row[i]) for row in numbers if row[i] not in "*+"] for i in range(len(numbers[0]))]
-
 
 total = 0
 for arr in columns:
@@ -38,7 +34,43 @@ for arr in columns:
     total += result
         
 print(f"part 1: {total}")
+"""
+
 
 # part 2
 # reading right to left
+
+
+
+
+with open("./day 6/test.txt","r") as file:
+    numbers = file.readlines()
+    
+    numbers = [s.strip("\n").strip(' ') for s in numbers]
+    numbers = [s.split(' ') for s in numbers]
+    numbers = [[element for element in row if element != ""] for row in numbers]   
+
+columns = [[row[i] for row in numbers] for i in range(len(numbers[0]))]
+
+
+for col in columns:
+    print(col)
+
+"""
+Plan is to continue grouping each number together with their respective operators
+
+Addition:
+- place digits are read from the right
+- right to left would be ones, tens, hundredths, etc, need to find length of longest str, etc
+
+Multiplication:
+ - same logic as addition but mutliplication
+
+
+top to bottom order matters so read array of input as same?
+i.e read left to right?
+
+get max length of int?
+
+"""
 
